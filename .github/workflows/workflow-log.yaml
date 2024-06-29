@@ -1,0 +1,29 @@
+name: Workflow Log
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  job_1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set output
+        run: echo "My output is $MY_VARIABLE"
+
+      - name: Upload artifcat
+        uses: actions/upload-artifact@v3
+        with:
+          name: my-artifact
+          path: /path/to/artifact
+
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: my-artifact
+          path: /path/to/download
+
+
+        
+      
+    
