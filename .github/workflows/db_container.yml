@@ -1,0 +1,19 @@
+name: DB Workflow
+
+on: push
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          # Add commands to interact with the database
+      
