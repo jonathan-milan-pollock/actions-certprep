@@ -1,0 +1,26 @@
+name: pass data
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # steps to create app.zip
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: application
+          path: build/app.zip
+
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: application
+
+      # steps to test using the app.zip
