@@ -32,5 +32,9 @@ jobs:
         uses: github/codeql-action/init@v2
         with:
           languages: python # Set to "python" for Python codebase
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
+        
       
     
