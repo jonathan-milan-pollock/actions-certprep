@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.inputs.deploy_target == 'aws'
     steps:
-      - uses: actions/chekout@v4
+      - uses: actions/checkout@v4
       
       - name: Login to AWS
         uses: aws-actions/configure-aws-credentials@v1
