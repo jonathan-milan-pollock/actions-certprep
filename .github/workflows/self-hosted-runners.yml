@@ -1,0 +1,13 @@
+name: Self Hosted Runners Example
+
+on: push
+
+jobs:
+  my_job:
+    runs-on: [self-hosted, win-custom]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Other steps follow
+      
