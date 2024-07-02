@@ -1,0 +1,50 @@
+name: Depooy to AWS
+
+on: 
+  workflow_dispatch:
+    inputs:
+      deploy_target:
+        description: What environment to deploy?
+        options:
+          - aws
+          - azure
+          
+jobs:
+  deploy_aws:
+    runs-on: ubuntu-latest
+    if: github.event.inputs.deploy_target == 'aws'
+    steps:
+      - uses: actions/chekout@v4
+      
+      - name: Login to AWS
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ vars.AWS_REGION }}
+
+
+      - name: Deploy the application to AWS
+        run: |
+          aws deploy \
+            --application-name ${{ env.AWS_APPLICATION_NAME }} \
+            --version ${{ github.sha }}
+        
+  deploy_azure:
+    runs-on: ubuntu-latest
+    if: github.event.inputs.deploy_target == 'azure'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Login to Azure
+        uses: azure/login@v1
+        with: 
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Deploy the application to Azure
+        run: |
+          az webapp deployment create \
+            --resource-group ${{ env.AZURE_RESOURCE_GROUP }} \
+            --name ${{ env.AZURE_APP_NAME }} \
+            --slot ${{ env.AZURE_SLOT }}
+            --source ${{ github.sha }}
+      
