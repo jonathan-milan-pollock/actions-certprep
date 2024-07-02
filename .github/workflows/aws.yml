@@ -47,6 +47,8 @@ jobs:
           az webapp deployment create \
             --resource-group ${{ env.AZURE_RESOURCE_GROUP }} \
             --name ${{ env.AZURE_APP_NAME }} \
-            --slot ${{ env.AZURE_SLOT }} #
+            --slot ${{ env.AZURE_SLOT }} \
             --source ${{ github.sha }}
+
+
       
