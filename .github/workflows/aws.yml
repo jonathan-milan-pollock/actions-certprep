@@ -1,10 +1,12 @@
-name: Depooy to AWS
+name: Deploy to AWS or Azure
 
 on: 
   workflow_dispatch:
     inputs:
       deploy_target:
         description: What environment to deploy?
+        type: choice
+        required: true
         options:
           - aws
           - azure
